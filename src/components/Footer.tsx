@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { cn } from '@/lib/utils';
-import { Github, Linkedin, Twitter, Instagram, Youtube } from 'lucide-react';
+import { Github, Linkedin, Instagram, Youtube, Mail, Phone, Download } from 'lucide-react';
 
 interface FooterProps {
   domain: 'webdev' | 'videoediting';
@@ -10,6 +10,10 @@ interface FooterProps {
 const Footer: React.FC<FooterProps> = ({ domain }) => {
   const isWebDev = domain === 'webdev';
   const currentYear = new Date().getFullYear();
+  
+  const handleDownloadCV = () => {
+    alert("CV download feature activated! In a real implementation, this would download your CV.");
+  };
   
   return (
     <footer className="bg-gray-900 text-white py-12">
@@ -22,6 +26,31 @@ const Footer: React.FC<FooterProps> = ({ domain }) => {
                 ? "Web Developer | Creating digital experiences" 
                 : "Video Editor | Bringing stories to life"}
             </p>
+            <div className="flex items-center mt-4 space-x-6">
+              <div className="flex items-center text-gray-400">
+                <Mail size={16} className="mr-2" />
+                <a href="mailto:sudeepsnwr8@gmail.com" className="hover:text-white transition-colors">sudeepsnwr8@gmail.com</a>
+              </div>
+              <div className="flex items-center text-gray-400">
+                <Phone size={16} className="mr-2" />
+                <span>9840401157</span>
+              </div>
+            </div>
+          </div>
+          
+          {/* Resume download */}
+          <div className="mb-6 md:mb-0">
+            <button
+              onClick={handleDownloadCV}
+              className={cn(
+                "px-5 py-2 rounded-full inline-flex items-center gap-2 transition-all",
+                isWebDev 
+                  ? "bg-webdev-accent hover:bg-webdev-accent/90 text-black" 
+                  : "bg-videoediting-accent hover:bg-videoediting-accent/90 text-black"
+              )}
+            >
+              <Download size={18} /> Download CV
+            </button>
           </div>
           
           {/* Social Links */}

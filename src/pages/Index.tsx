@@ -43,9 +43,9 @@ const Index = () => {
       <main className="pt-16">
         <HeroSection domain={domain} />
         <ProjectsSection domain={domain} />
-        <CompanyLogosSection domain={domain} />
-        <ClientFeedbackSection domain={domain} />
         <AboutSection domain={domain} />
+        <ClientFeedbackSection domain={domain} />
+        <CompanyLogosSection domain={domain} />
         <ContactSection domain={domain} />
       </main>
       <Footer domain={domain} />

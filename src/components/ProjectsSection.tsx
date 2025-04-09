@@ -1,7 +1,8 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
-import { ExternalLink, Github, ChevronRight, ChevronLeft, MoreHorizontal } from 'lucide-react';
+import { ExternalLink, Github, ChevronRight, ChevronLeft, MoreHorizontal, Filter } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 
 interface Project {
   id: number;
@@ -9,6 +10,7 @@ interface Project {
   description: string;
   image: string;
   tags: string[];
+  category?: string;
   liveLink?: string;
   codeLink?: string;
 }
@@ -81,6 +83,7 @@ const videoProjects: Project[] = [
     description: "A promotional video for a tech startup showcasing their product features and company culture. Included motion graphics and custom animations.",
     image: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2940&q=80",
     tags: ["Corporate", "Motion Graphics", "After Effects"],
+    category: "Corporate",
     liveLink: "https://www.youtube.com/watch?v=example1"
   },
   {
@@ -89,6 +92,7 @@ const videoProjects: Project[] = [
     description: "A short documentary following adventurers through the Himalayan mountains. Includes drone footage, time-lapses, and interview segments.",
     image: "https://images.unsplash.com/photo-1614270248176-13d27bb75710?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2940&q=80",
     tags: ["Documentary", "Color Grading", "Premiere Pro"],
+    category: "Documentary",
     liveLink: "https://www.youtube.com/watch?v=example2"
   },
   {
@@ -97,6 +101,7 @@ const videoProjects: Project[] = [
     description: "A cinematic highlights film capturing the essence of a destination wedding. Seamlessly blended emotional moments with beautiful location shots.",
     image: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2940&q=80",
     tags: ["Wedding", "Cinematic", "Final Cut Pro"],
+    category: "Wedding",
     liveLink: "https://www.youtube.com/watch?v=example3"
   },
   {
@@ -105,6 +110,7 @@ const videoProjects: Project[] = [
     description: "A visually striking music video for an indie band, featuring creative transitions, color effects, and synchronized visual elements.",
     image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2940&q=80",
     tags: ["Music Video", "Visual Effects", "DaVinci Resolve"],
+    category: "Music",
     liveLink: "https://www.youtube.com/watch?v=example4"
   },
   {
@@ -113,6 +119,7 @@ const videoProjects: Project[] = [
     description: "A high-end commercial for a luxury product, incorporating professional lighting, macro shots, and precise editing to highlight product features.",
     image: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2942&q=80",
     tags: ["Commercial", "Product Showcase", "Premiere Pro"],
+    category: "Commercial",
     liveLink: "https://www.youtube.com/watch?v=example5"
   },
   {
@@ -121,17 +128,52 @@ const videoProjects: Project[] = [
     description: "A dynamic aftermovie capturing the energy and highlights of a major music festival, featuring crowd shots, performer moments, and atmospheric transitions.",
     image: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2940&q=80",
     tags: ["Event", "Aftermovie", "Final Cut Pro"],
+    category: "Event",
     liveLink: "https://www.youtube.com/watch?v=example6"
+  },
+  {
+    id: 7,
+    title: "Short Film",
+    description: "An emotional short film about family connections, featuring carefully planned shots, dramatic lighting, and a powerful narrative structure.",
+    image: "https://images.unsplash.com/photo-1485846234645-a62644f84728?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2940&q=80",
+    tags: ["Short Film", "Storytelling", "DaVinci Resolve"],
+    category: "Short Film",
+    liveLink: "https://www.youtube.com/watch?v=example7"
+  },
+  {
+    id: 8,
+    title: "Educational Content",
+    description: "A series of educational videos explaining complex topics with animated graphics, clear visuals, and engaging editing techniques.",
+    image: "https://images.unsplash.com/photo-1588702547923-7093a6c3ba33?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2940&q=80",
+    tags: ["Educational", "Motion Graphics", "After Effects"],
+    category: "Educational",
+    liveLink: "https://www.youtube.com/watch?v=example8"
   },
 ];
 
 const ProjectsSection: React.FC<ProjectsSectionProps> = ({ domain }) => {
   const isWebDev = domain === 'webdev';
-  const projects = isWebDev ? webProjects : videoProjects;
+  const allProjects = isWebDev ? webProjects : videoProjects;
   const [activeSlide, setActiveSlide] = useState(0);
-  const slidesPerView = 3;
-  const totalSlides = Math.ceil(projects.length / slidesPerView);
   const [expandedDescriptions, setExpandedDescriptions] = useState<number[]>([]);
+  const [filteredProjects, setFilteredProjects] = useState(allProjects);
+  const [activeFilter, setActiveFilter] = useState('All');
+  const [isHovering, setIsHovering] = useState<number | null>(null);
+  
+  const slidesPerView = 3;
+  const totalSlides = Math.ceil(filteredProjects.length / slidesPerView);
+  
+  // Get unique categories
+  const categories = ['All', ...Array.from(new Set(videoProjects.map(p => p.category)))];
+  
+  useEffect(() => {
+    if (activeFilter === 'All') {
+      setFilteredProjects(allProjects);
+    } else {
+      setFilteredProjects(allProjects.filter(p => p.category === activeFilter));
+    }
+    setActiveSlide(0);
+  }, [activeFilter, domain, allProjects]);
   
   const nextSlide = () => {
     setActiveSlide((prev) => (prev + 1) % totalSlides);
@@ -178,20 +220,51 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ domain }) => {
   };
   
   return (
-    <section id="projects" className="py-20 bg-black">
-      <div className="container-custom">
-        <div className="text-center mb-16">
+    <section id="projects" className="py-20 bg-black relative overflow-hidden">
+      {/* Dynamic background elements */}
+      <div className="absolute inset-0 bg-grid-pattern opacity-[0.03]"></div>
+      
+      {!isWebDev && (
+        <div className="absolute -top-40 left-0 w-96 h-96 rounded-full opacity-5 blur-3xl bg-purple-500"></div>
+      )}
+      
+      {!isWebDev && (
+        <div className="absolute bottom-20 right-10 w-80 h-80 rounded-full opacity-5 blur-3xl bg-pink-500"></div>
+      )}
+
+      <div className="container-custom relative z-10">
+        <div className="text-center mb-12">
           <h2 className={cn(
             "section-title text-white",
             isWebDev ? "glow-accent-webdev" : "glow-accent-videoediting"
           )}>
             {isWebDev ? "Web Development Projects" : "Video Editing Projects"}
           </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">
+          <p className="text-gray-400 max-w-2xl mx-auto mb-8">
             {isWebDev
               ? "A showcase of my web development projects, featuring responsive designs and interactive user experiences."
               : "A collection of video editing projects that demonstrate my ability to tell compelling visual stories."}
           </p>
+          
+          {/* Category filters - only for video editing */}
+          {!isWebDev && (
+            <div className="flex flex-wrap justify-center gap-3 mb-10">
+              {categories.map((category) => (
+                <button
+                  key={category}
+                  onClick={() => setActiveFilter(category)}
+                  className={cn(
+                    "px-4 py-2 rounded-full text-sm font-medium transition-all",
+                    activeFilter === category
+                      ? "bg-videoediting-accent text-black"
+                      : "bg-gray-800 text-gray-300 hover:bg-gray-700"
+                  )}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
         
         <div className="relative">
@@ -212,23 +285,29 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ domain }) => {
             <ChevronRight size={24} />
           </button>
           
-          {/* Projects grid */}
+          {/* Projects grid with animation effects */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 transition-all duration-500 ease-out">
-            {projects.slice(activeSlide * slidesPerView, activeSlide * slidesPerView + slidesPerView).map((project, index) => (
+            {filteredProjects.slice(activeSlide * slidesPerView, activeSlide * slidesPerView + slidesPerView).map((project, index) => (
               <div 
                 key={project.id} 
                 className="project-card group animate-fade-in"
                 style={{ animationDelay: `${index * 100}ms` }}
+                onMouseEnter={() => setIsHovering(project.id)}
+                onMouseLeave={() => setIsHovering(null)}
               >
                 <div className="relative overflow-hidden h-56">
                   <img 
                     src={project.image} 
                     alt={project.title}
-                    className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"
+                    className={cn(
+                      "w-full h-full object-cover object-center transition-all duration-700",
+                      isHovering === project.id ? "scale-110 blur-sm" : "scale-100"
+                    )}
                   />
                   <div className={cn(
-                    "absolute inset-0 opacity-0 group-hover:opacity-80 transition-opacity duration-300",
-                    isWebDev ? "bg-webdev-DEFAULT" : "bg-videoediting-DEFAULT"
+                    "absolute inset-0 transition-opacity duration-300",
+                    isHovering === project.id ? "opacity-80" : "opacity-0",
+                    isWebDev ? "bg-gradient-to-br from-blue-900 to-purple-900" : "bg-gradient-to-br from-pink-900 to-purple-900"
                   )}></div>
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 z-10">
                     <div className="flex space-x-4">
@@ -238,7 +317,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ domain }) => {
                           target="_blank" 
                           rel="noopener noreferrer"
                           className={cn(
-                            "rounded-full p-3 transition-colors",
+                            "rounded-full p-3 transition-transform hover:scale-110",
                             isWebDev ? "bg-webdev-accent" : "bg-videoediting-accent"
                           )}
                         >
@@ -250,15 +329,27 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ domain }) => {
                           href={project.codeLink} 
                           target="_blank" 
                           rel="noopener noreferrer"
-                          className="bg-white rounded-full p-3 hover:bg-gray-200 transition-colors"
+                          className="bg-white rounded-full p-3 hover:bg-gray-200 transition-transform hover:scale-110"
                         >
                           <Github size={20} className="text-black" />
                         </a>
                       )}
                     </div>
                   </div>
+                  
+                  {/* Category badge */}
+                  {project.category && !isWebDev && (
+                    <div className="absolute top-3 left-3 z-10">
+                      <Badge className="bg-videoediting-accent/90 text-black hover:bg-videoediting-accent">
+                        {project.category}
+                      </Badge>
+                    </div>
+                  )}
                 </div>
-                <div className="p-6 glass-morphism">
+                <div className={cn(
+                  "p-6 glass-morphism transition-all duration-300",
+                  isHovering === project.id ? "bg-black/60" : "bg-black/40"
+                )}>
                   <h3 className="text-xl font-bold mb-2 text-white">{project.title}</h3>
                   <p className="text-gray-300 mb-4">{truncateDescription(project.description, project.id)}</p>
                   <div className="flex flex-wrap gap-2">
@@ -281,24 +372,35 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ domain }) => {
             ))}
           </div>
           
+          {/* Empty state if no projects match the filter */}
+          {filteredProjects.length === 0 && (
+            <div className="text-center py-16 glass-morphism rounded-xl">
+              <Filter size={48} className="mx-auto mb-4 text-gray-500" />
+              <h3 className="text-xl font-medium text-white mb-2">No projects found</h3>
+              <p className="text-gray-400">Try selecting a different category filter</p>
+            </div>
+          )}
+          
           {/* Pagination dots for mobile */}
-          <div className="flex justify-center space-x-2 mt-8 md:hidden">
-            {Array.from({ length: totalSlides }).map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setActiveSlide(index)}
-                className={cn(
-                  "w-3 h-3 rounded-full transition-all",
-                  activeSlide === index
-                    ? isWebDev 
-                      ? "bg-webdev-accent" 
-                      : "bg-videoediting-accent"
-                    : "bg-gray-600"
-                )}
-                aria-label={`Go to slide ${index + 1}`}
-              />
-            ))}
-          </div>
+          {totalSlides > 1 && (
+            <div className="flex justify-center space-x-2 mt-8">
+              {Array.from({ length: totalSlides }).map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setActiveSlide(index)}
+                  className={cn(
+                    "w-3 h-3 rounded-full transition-all",
+                    activeSlide === index
+                      ? isWebDev 
+                        ? "bg-webdev-accent" 
+                        : "bg-videoediting-accent"
+                      : "bg-gray-600"
+                  )}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
+            </div>
+          )}
         </div>
         
         {/* View all projects button */}

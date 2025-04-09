@@ -1,7 +1,9 @@
+
 import React, { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
-import { ArrowDown, Github, Linkedin, Twitter, Instagram, Clock } from 'lucide-react';
+import { ArrowDown, Github, Linkedin, Instagram, Clock, Download } from 'lucide-react';
 import { HoverCard, HoverCardTrigger, HoverCardContent } from '@/components/ui/hover-card';
+import { Button } from '@/components/ui/button';
 
 interface HeroSectionProps {
   domain: 'webdev' | 'videoediting';
@@ -58,6 +60,11 @@ const HeroSection: React.FC<HeroSectionProps> = ({ domain }) => {
     return encouragements[index];
   };
   
+  const handleDownloadCV = () => {
+    // This would typically download a CV file
+    alert("CV download feature activated! In a real implementation, this would download your CV.");
+  };
+  
   return (
     <section className={cn(
       "min-h-screen flex flex-col justify-center relative overflow-hidden bg-webdev-DEFAULT",
@@ -103,7 +110,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ domain }) => {
                 : "I transform raw footage into compelling visual stories, enhancing narratives through creative video editing techniques."}
             </p>
             
-            <div className="flex flex-wrap gap-4 animate-delay-500">
+            <div className="flex flex-wrap gap-4 animate-delay-500 mb-8">
               <a 
                 href="#projects" 
                 className={cn(
@@ -121,10 +128,18 @@ const HeroSection: React.FC<HeroSectionProps> = ({ domain }) => {
               >
                 Get In Touch
               </a>
+              <button
+                onClick={handleDownloadCV}
+                className={cn(
+                  "px-6 py-3 rounded-full neo-blur text-white hover:bg-white/10 inline-flex items-center gap-2 transition-all"
+                )}
+              >
+                <Download size={18} /> Download CV
+              </button>
             </div>
             
             {/* Social links */}
-            <div className="flex mt-8 space-x-4">
+            <div className="flex mt-4 space-x-4">
               <a href="https://github.com/sudip-can-code" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
                 <Github size={24} />
               </a>
@@ -145,7 +160,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ domain }) => {
                   isWebDev ? "border-webdev-accent" : "border-videoediting-accent"
                 )}>
                   <img 
-                    src="https://sudipsunuwar.com.np/images/hero.jpg" 
+                    src="/lovable-uploads/c7885680-67cf-4f47-bb85-87577617051b.png" 
                     alt="Sudip Sunuwar" 
                     className="w-full h-full object-cover"
                   />
