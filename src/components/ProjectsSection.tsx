@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { cn } from '@/lib/utils';
-import { ExternalLink, Github, ChevronRight, ChevronLeft } from 'lucide-react';
+import { ExternalLink, Github, ChevronRight, ChevronLeft, MoreHorizontal } from 'lucide-react';
 
 interface Project {
   id: number;
@@ -131,6 +131,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ domain }) => {
   const [activeSlide, setActiveSlide] = useState(0);
   const slidesPerView = 3;
   const totalSlides = Math.ceil(projects.length / slidesPerView);
+  const [expandedDescriptions, setExpandedDescriptions] = useState<number[]>([]);
   
   const nextSlide = () => {
     setActiveSlide((prev) => (prev + 1) % totalSlides);
@@ -138,6 +139,42 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ domain }) => {
   
   const prevSlide = () => {
     setActiveSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
+  };
+  
+  const toggleDescription = (projectId: number) => {
+    setExpandedDescriptions(prev => 
+      prev.includes(projectId) 
+        ? prev.filter(id => id !== projectId) 
+        : [...prev, projectId]
+    );
+  };
+  
+  const truncateDescription = (text: string, projectId: number) => {
+    const isExpanded = expandedDescriptions.includes(projectId);
+    const maxLength = 100;
+    
+    if (text.length <= maxLength) return text;
+    
+    if (isExpanded) return text;
+    
+    return (
+      <>
+        {text.substring(0, maxLength)}...
+        <button 
+          onClick={(e) => {
+            e.stopPropagation();
+            toggleDescription(projectId);
+          }} 
+          className={cn(
+            "ml-1 font-medium underline inline-flex items-center",
+            isWebDev ? "text-webdev-accent" : "text-videoediting-accent"
+          )}
+        >
+          <span>See More</span>
+          <MoreHorizontal size={16} className="ml-1" />
+        </button>
+      </>
+    );
   };
   
   return (
@@ -223,7 +260,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ domain }) => {
                 </div>
                 <div className="p-6 glass-morphism">
                   <h3 className="text-xl font-bold mb-2 text-white">{project.title}</h3>
-                  <p className="text-gray-300 mb-4">{project.description}</p>
+                  <p className="text-gray-300 mb-4">{truncateDescription(project.description, project.id)}</p>
                   <div className="flex flex-wrap gap-2">
                     {project.tags.map((tag, index) => (
                       <span 

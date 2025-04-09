@@ -6,9 +6,11 @@ import ProjectsSection from '@/components/ProjectsSection';
 import AboutSection from '@/components/AboutSection';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
+import ClientFeedbackSection from '@/components/ClientFeedbackSection';
+import CompanyLogosSection from '@/components/CompanyLogosSection';
 
 const Index = () => {
-  const [domain, setDomain] = useState<'webdev' | 'videoediting'>('webdev');
+  const [domain, setDomain] = useState<'webdev' | 'videoediting'>('videoediting');
   const [loading, setLoading] = useState(true);
   
   useEffect(() => {
@@ -41,6 +43,8 @@ const Index = () => {
       <main className="pt-16">
         <HeroSection domain={domain} />
         <ProjectsSection domain={domain} />
+        <CompanyLogosSection domain={domain} />
+        <ClientFeedbackSection domain={domain} />
         <AboutSection domain={domain} />
         <ContactSection domain={domain} />
       </main>

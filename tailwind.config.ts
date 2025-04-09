@@ -126,6 +126,18 @@ export default {
 				'rotate-slow': {
 					'0%': { transform: 'rotate(0deg)' },
 					'100%': { transform: 'rotate(360deg)' }
+				},
+				'scroll': {
+					'0%': { transform: 'translateX(0)' },
+					'100%': { transform: 'translateX(-50%)' }
+				},
+				'bounce-slow': {
+					'0%, 100%': { transform: 'translateY(0)' },
+					'50%': { transform: 'translateY(-10px)' }
+				},
+				'tilt': {
+					'0%, 100%': { transform: 'rotate(-2deg)' },
+					'50%': { transform: 'rotate(2deg)' }
 				}
 			},
 			animation: {
@@ -139,7 +151,10 @@ export default {
 				'float': 'float 5s ease-in-out infinite',
 				'pulse': 'pulse 3s ease-in-out infinite',
 				'shimmer': 'shimmer 2s linear infinite',
-				'rotate-slow': 'rotate-slow 10s linear infinite'
+				'rotate-slow': 'rotate-slow 10s linear infinite',
+				'scroll': 'scroll 40s linear infinite',
+				'bounce-slow': 'bounce-slow 3s ease-in-out infinite',
+				'tilt': 'tilt 5s ease-in-out infinite'
 			},
 			fontFamily: {
 				'webdev': ['Inter', 'sans-serif'],
