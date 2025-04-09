@@ -98,8 +98,8 @@ const ContactSection: React.FC<ContactSectionProps> = ({ domain }) => {
                     </div>
                     <div>
                       <h4 className="font-semibold text-white mb-1">Email</h4>
-                      <a href="mailto:contact@sudipsunuwar.com" className="text-gray-300 hover:text-white transition-colors">
-                        contact@sudipsunuwar.com
+                      <a href="mailto:sudeepsnwr8@gmail.com" className="text-gray-300 hover:text-white transition-colors">
+                        sudeepsnwr8@gmail.com
                       </a>
                     </div>
                   </div>
@@ -113,8 +113,8 @@ const ContactSection: React.FC<ContactSectionProps> = ({ domain }) => {
                     </div>
                     <div>
                       <h4 className="font-semibold text-white mb-1">Phone</h4>
-                      <a href="tel:+9779812345678" className="text-gray-300 hover:text-white transition-colors">
-                        +977 9812345678
+                      <a href="tel:+9779840401157" className="text-gray-300 hover:text-white transition-colors">
+                        +977 9840401157
                       </a>
                     </div>
                   </div>

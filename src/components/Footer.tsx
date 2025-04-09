@@ -27,7 +27,9 @@ const Footer: React.FC<FooterProps> = ({ domain }) => {
           {/* Social Links */}
           <div className="flex space-x-4">
             <a
-              href="#"
+              href="https://github.com/sudip-can-code"
+              target="_blank"
+              rel="noopener noreferrer"
               className={cn(
                 "w-10 h-10 rounded-full flex items-center justify-center transition-colors",
                 "bg-gray-800 hover:bg-gray-700"
@@ -36,7 +38,9 @@ const Footer: React.FC<FooterProps> = ({ domain }) => {
               <Github size={20} />
             </a>
             <a
-              href="#"
+              href="https://www.linkedin.com/feed/"
+              target="_blank"
+              rel="noopener noreferrer"
               className={cn(
                 "w-10 h-10 rounded-full flex items-center justify-center transition-colors",
                 "bg-gray-800 hover:bg-gray-700"
@@ -45,16 +49,9 @@ const Footer: React.FC<FooterProps> = ({ domain }) => {
               <Linkedin size={20} />
             </a>
             <a
-              href="#"
-              className={cn(
-                "w-10 h-10 rounded-full flex items-center justify-center transition-colors",
-                "bg-gray-800 hover:bg-gray-700"
-              )}
-            >
-              <Twitter size={20} />
-            </a>
-            <a
-              href="#"
+              href="https://www.instagram.com/mr_jijicha?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+              target="_blank"
+              rel="noopener noreferrer"
               className={cn(
                 "w-10 h-10 rounded-full flex items-center justify-center transition-colors",
                 "bg-gray-800 hover:bg-gray-700"
@@ -64,7 +61,9 @@ const Footer: React.FC<FooterProps> = ({ domain }) => {
             </a>
             {!isWebDev && (
               <a
-                href="#"
+                href="https://www.youtube.com/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className={cn(
                   "w-10 h-10 rounded-full flex items-center justify-center transition-colors",
                   "bg-gray-800 hover:bg-gray-700"

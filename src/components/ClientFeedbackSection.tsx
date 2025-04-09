@@ -21,54 +21,54 @@ interface Testimonial {
 const testimonials: Testimonial[] = [
   {
     id: 1,
-    name: "James Wilson",
-    company: "TechStart Inc.",
-    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
+    name: "Aarav Shrestha",
+    company: "Himalayan Tech Solutions",
+    avatar: "https://images.unsplash.com/photo-1610216705422-caa3fcb6d158?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
     rating: 5,
     text: "Sudip delivered our website redesign ahead of schedule and exceeded all expectations. His attention to detail and technical expertise made our project a huge success.",
     domain: 'webdev'
   },
   {
     id: 2,
-    name: "Alexandra Chen",
-    company: "Creative Films",
-    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
+    name: "Priya Maharjan",
+    company: "Nepal Creative Films",
+    avatar: "https://images.unsplash.com/photo-1593104547489-5cfb3839a3b5?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
     rating: 5,
     text: "The video editing skills Sudip brings to the table are phenomenal. He transformed our raw footage into a compelling story that captivated our audience and helped us win a film festival award.",
     domain: 'videoediting'
   },
   {
     id: 3,
-    name: "Michael Rodriguez",
-    company: "Global Marketing Group",
-    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
+    name: "Binod Tamang",
+    company: "Mountain Media Group",
+    avatar: "https://images.unsplash.com/photo-1500259571355-332da5cb07aa?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
     rating: 5,
     text: "We've worked with Sudip on multiple projects spanning both web development and video production. His versatility and consistent quality make him our go-to creative professional.",
     domain: 'both'
   },
   {
     id: 4,
-    name: "Sarah Johnson",
-    company: "E-commerce Solutions",
-    avatar: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
+    name: "Anjali Gurung",
+    company: "Kathmandu E-commerce",
+    avatar: "https://images.unsplash.com/photo-1619011511189-4fbc2d99583e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
     rating: 4,
     text: "Sudip developed our e-commerce platform with exceptional attention to user experience. The site has boosted our conversion rates by 35% since launch.",
     domain: 'webdev'
   },
   {
     id: 5,
-    name: "David Kim",
-    company: "Viral Media Productions",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
+    name: "Rajesh Thapa",
+    company: "Annapurna Productions",
+    avatar: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
     rating: 5,
     text: "The color grading and transitions in our corporate video were absolutely perfect. Sudip has a rare talent for visual storytelling that makes his work stand out.",
     domain: 'videoediting'
   },
   {
     id: 6,
-    name: "Emily Nguyen",
-    company: "StartUp Ventures",
-    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
+    name: "Sita Bhattarai",
+    company: "Everest Ventures",
+    avatar: "https://images.unsplash.com/photo-1616766098901-0e9a8037de86?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
     rating: 5,
     text: "From our website to our promotional videos, Sudip handled everything with professionalism and creativity. It's rare to find someone skilled in both areas.",
     domain: 'both'

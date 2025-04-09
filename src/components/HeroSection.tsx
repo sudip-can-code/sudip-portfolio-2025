@@ -1,7 +1,7 @@
-
 import React, { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
-import { ArrowDown, Github, Linkedin, Twitter, Instagram } from 'lucide-react';
+import { ArrowDown, Github, Linkedin, Twitter, Instagram, Clock } from 'lucide-react';
+import { HoverCard, HoverCardTrigger, HoverCardContent } from '@/components/ui/hover-card';
 
 interface HeroSectionProps {
   domain: 'webdev' | 'videoediting';
@@ -10,10 +10,53 @@ interface HeroSectionProps {
 const HeroSection: React.FC<HeroSectionProps> = ({ domain }) => {
   const isWebDev = domain === 'webdev';
   const [isVisible, setIsVisible] = useState(false);
+  const [timeSpent, setTimeSpent] = useState(0);
 
   useEffect(() => {
     setIsVisible(true);
-  }, []);
+    
+    // Start tracking time spent on this domain
+    const startTime = localStorage.getItem(`${domain}-start-time`);
+    if (!startTime) {
+      localStorage.setItem(`${domain}-start-time`, Date.now().toString());
+    }
+    
+    // Calculate time spent in this domain session
+    const timeTracker = setInterval(() => {
+      const startTimeValue = Number(localStorage.getItem(`${domain}-start-time`)) || Date.now();
+      const currentTime = Date.now();
+      const timeElapsed = Math.floor((currentTime - startTimeValue) / 1000);
+      setTimeSpent(timeElapsed);
+    }, 1000);
+    
+    return () => {
+      clearInterval(timeTracker);
+    };
+  }, [domain]);
+  
+  const formatTime = (seconds: number) => {
+    if (seconds < 60) return `${seconds} seconds`;
+    const minutes = Math.floor(seconds / 60);
+    if (minutes < 60) return `${minutes} minute${minutes > 1 ? 's' : ''}`;
+    const hours = Math.floor(minutes / 60);
+    const remainingMinutes = minutes % 60;
+    return `${hours} hour${hours > 1 ? 's' : ''} ${remainingMinutes} minute${remainingMinutes > 1 ? 's' : ''}`;
+  };
+  
+  const getRandomEncouragement = () => {
+    const encouragements = [
+      "Amazing! You're truly exploring my work in-depth.",
+      "Thanks for spending time on my portfolio!",
+      "Wow! Your interest means a lot to me.",
+      "I'm impressed by your dedication to checking out my work.",
+      "Keep exploring! There's more to discover.",
+      "Your time is valuable - thanks for sharing it with my portfolio!",
+      "Great to see you're interested in my creative process!"
+    ];
+    
+    const index = Math.floor(Math.random() * encouragements.length);
+    return encouragements[index];
+  };
   
   return (
     <section className={cn(
@@ -82,37 +125,54 @@ const HeroSection: React.FC<HeroSectionProps> = ({ domain }) => {
             
             {/* Social links */}
             <div className="flex mt-8 space-x-4">
-              <a href="https://github.com/username" className="text-gray-400 hover:text-white transition-colors">
+              <a href="https://github.com/sudip-can-code" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
                 <Github size={24} />
               </a>
-              <a href="https://linkedin.com/in/username" className="text-gray-400 hover:text-white transition-colors">
+              <a href="https://www.linkedin.com/feed/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
                 <Linkedin size={24} />
               </a>
-              <a href="https://twitter.com/username" className="text-gray-400 hover:text-white transition-colors">
-                <Twitter size={24} />
-              </a>
-              <a href="https://instagram.com/username" className="text-gray-400 hover:text-white transition-colors">
+              <a href="https://www.instagram.com/mr_jijicha?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
                 <Instagram size={24} />
               </a>
             </div>
           </div>
           
           <div className="order-1 md:order-2 flex justify-center">
-            <div className={cn(
-              "relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-2 animate-float",
-              isWebDev ? "border-webdev-accent" : "border-videoediting-accent"
-            )}>
-              <img 
-                src="https://sudipsunuwar.com.np/images/hero.jpg" 
-                alt="Sudip Sunuwar" 
-                className="w-full h-full object-cover"
-              />
-              
-              <div className={cn(
-                "absolute inset-0 opacity-20",
-                isWebDev ? "bg-webdev-accent" : "bg-videoediting-accent"
-              )}></div>
-            </div>
+            <HoverCard>
+              <HoverCardTrigger asChild>
+                <div className={cn(
+                  "relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-2 animate-float cursor-pointer transform transition-all duration-300 hover:scale-105",
+                  isWebDev ? "border-webdev-accent" : "border-videoediting-accent"
+                )}>
+                  <img 
+                    src="https://sudipsunuwar.com.np/images/hero.jpg" 
+                    alt="Sudip Sunuwar" 
+                    className="w-full h-full object-cover"
+                  />
+                  
+                  <div className={cn(
+                    "absolute inset-0 opacity-20",
+                    isWebDev ? "bg-webdev-accent" : "bg-videoediting-accent"
+                  )}></div>
+                </div>
+              </HoverCardTrigger>
+              <HoverCardContent className="p-4 bg-black/80 backdrop-blur-md border-none shadow-xl">
+                <div className="text-white">
+                  <div className="flex items-center mb-2">
+                    <Clock size={18} className={cn(
+                      isWebDev ? "text-webdev-accent" : "text-videoediting-accent"
+                    )} />
+                    <span className="ml-2 text-sm">Time exploring {isWebDev ? "Web Dev" : "Video Editing"} mode</span>
+                  </div>
+                  <p className="text-base font-medium mb-2">
+                    {formatTime(timeSpent)}
+                  </p>
+                  <p className="text-xs text-gray-300">
+                    {getRandomEncouragement()}
+                  </p>
+                </div>
+              </HoverCardContent>
+            </HoverCard>
           </div>
         </div>
       </div>
