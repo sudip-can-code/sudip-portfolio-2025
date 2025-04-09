@@ -1,3 +1,6 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -35,19 +38,12 @@
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
@@ -96,6 +92,52 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-webdev;
+    scroll-behavior: smooth;
   }
+
+  .webdev-theme {
+    @apply font-webdev;
+  }
+  
+  .videoediting-theme {
+    @apply font-videoediting;
+  }
+
+  .project-card {
+    @apply rounded-lg overflow-hidden bg-white shadow-md hover:shadow-xl transition-all duration-300;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-4xl font-bold mb-6;
+  }
+
+  .container-custom {
+    @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
+
+/* Domain-specific styles */
+.webdev-accent {
+  color: #4ecdc4;
+}
+
+.videoediting-accent {
+  color: #ff6b6b;
+}
+
+.webdev-bg-accent {
+  background-color: #4ecdc4;
+}
+
+.videoediting-bg-accent {
+  background-color: #ff6b6b;
+}
+
+.webdev-border-accent {
+  border-color: #4ecdc4;
+}
+
+.videoediting-border-accent {
+  border-color: #ff6b6b;
 }
