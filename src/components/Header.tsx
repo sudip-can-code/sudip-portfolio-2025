@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -12,6 +12,16 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ domain, onDomainChange }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
@@ -19,15 +29,17 @@ const Header: React.FC<HeaderProps> = ({ domain, onDomainChange }) => {
 
   return (
     <header className={cn(
-      "sticky top-0 z-50 bg-white bg-opacity-90 backdrop-blur-md shadow-sm",
-      domain === 'webdev' ? 'border-b-2 border-webdev-accent' : 'border-b-2 border-videoediting-accent'
+      "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+      scrolled ? "glass-morphism py-3" : "bg-transparent py-5"
     )}>
-      <div className="container-custom py-4">
+      <div className="container-custom">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center space-x-2">
             <span className={cn(
-              "text-xl font-bold",
-              domain === 'webdev' ? 'webdev-accent' : 'videoediting-accent'
+              "text-xl font-bold transition-all duration-300",
+              domain === 'webdev' 
+                ? 'webdev-accent glow-accent-webdev' 
+                : 'videoediting-accent glow-accent-videoediting'
             )}>
               Sudip Sunuwar
             </span>
@@ -38,14 +50,14 @@ const Header: React.FC<HeaderProps> = ({ domain, onDomainChange }) => {
           
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <Link to="/" className="text-gray-800 hover:text-gray-600">Home</Link>
-            <Link to="#projects" className="text-gray-800 hover:text-gray-600">Projects</Link>
-            <Link to="#about" className="text-gray-800 hover:text-gray-600">About</Link>
-            <Link to="#contact" className="text-gray-800 hover:text-gray-600">Contact</Link>
+            <Link to="/" className="text-gray-300 hover:text-white transition-colors">Home</Link>
+            <a href="#projects" className="text-gray-300 hover:text-white transition-colors">Projects</a>
+            <a href="#about" className="text-gray-300 hover:text-white transition-colors">About</a>
+            <a href="#contact" className="text-gray-300 hover:text-white transition-colors">Contact</a>
           </nav>
 
           {/* Mobile Menu Button */}
-          <button className="md:hidden" onClick={toggleMobileMenu}>
+          <button className="md:hidden text-white p-2 rounded-full glass-morphism" onClick={toggleMobileMenu}>
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
@@ -53,35 +65,35 @@ const Header: React.FC<HeaderProps> = ({ domain, onDomainChange }) => {
         {/* Mobile Menu */}
         {mobileMenuOpen && (
           <nav className="md:hidden pt-4 pb-2 animate-fade-in">
-            <div className="flex flex-col space-y-4">
+            <div className="flex flex-col space-y-6 glass-morphism p-6 rounded-xl mt-4">
               <Link 
                 to="/" 
-                className="text-gray-800 hover:text-gray-600 py-2"
+                className="text-gray-300 hover:text-white py-2 transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Home
               </Link>
-              <Link 
-                to="#projects" 
-                className="text-gray-800 hover:text-gray-600 py-2"
+              <a 
+                href="#projects" 
+                className="text-gray-300 hover:text-white py-2 transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Projects
-              </Link>
-              <Link 
-                to="#about" 
-                className="text-gray-800 hover:text-gray-600 py-2"
+              </a>
+              <a 
+                href="#about" 
+                className="text-gray-300 hover:text-white py-2 transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 About
-              </Link>
-              <Link 
-                to="#contact" 
-                className="text-gray-800 hover:text-gray-600 py-2"
+              </a>
+              <a 
+                href="#contact" 
+                className="text-gray-300 hover:text-white py-2 transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Contact
-              </Link>
+              </a>
             </div>
           </nav>
         )}

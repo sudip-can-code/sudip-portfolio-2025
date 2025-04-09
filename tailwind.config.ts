@@ -65,13 +65,13 @@ export default {
 				},
 				// Custom colors for our dual portfolio
 				webdev: {
-					DEFAULT: '#1a1f2c',
+					DEFAULT: '#121212',
 					accent: '#4ecdc4',
 					text: '#f7f7f7',
 					muted: '#8b8b8b'
 				},
 				videoediting: {
-					DEFAULT: '#1a1f2c',
+					DEFAULT: '#121212',
 					accent: '#ff6b6b',
 					text: '#f7f7f7',
 					muted: '#8b8b8b'
@@ -110,6 +110,22 @@ export default {
 				'slide-in-right': {
 					'0%': { transform: 'translateX(100%)' },
 					'100%': { transform: 'translateX(0)' }
+				},
+				'float': {
+					'0%, 100%': { transform: 'translateY(0)' },
+					'50%': { transform: 'translateY(-10px)' }
+				},
+				'pulse': {
+					'0%, 100%': { opacity: '1' },
+					'50%': { opacity: '0.5' }
+				},
+				'shimmer': {
+					'0%': { backgroundPosition: '-200% 0' },
+					'100%': { backgroundPosition: '200% 0' }
+				},
+				'rotate-slow': {
+					'0%': { transform: 'rotate(0deg)' },
+					'100%': { transform: 'rotate(360deg)' }
 				}
 			},
 			animation: {
@@ -119,7 +135,11 @@ export default {
 				'fade-out': 'fade-out 0.5s ease-out',
 				'slide-in': 'slide-in 0.5s ease-out',
 				'slide-right': 'slide-right 0.5s ease-out',
-				'slide-in-right': 'slide-in-right 0.5s ease-out'
+				'slide-in-right': 'slide-in-right 0.5s ease-out',
+				'float': 'float 5s ease-in-out infinite',
+				'pulse': 'pulse 3s ease-in-out infinite',
+				'shimmer': 'shimmer 2s linear infinite',
+				'rotate-slow': 'rotate-slow 10s linear infinite'
 			},
 			fontFamily: {
 				'webdev': ['Inter', 'sans-serif'],
